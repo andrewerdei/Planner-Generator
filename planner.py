@@ -1,7 +1,7 @@
 import xlsxwriter
 import calendar
 
-workbook = xlsxwriter.Workbook('AcademicPlanner.xlsx')
+
 cal = calendar.Calendar()
 cal.setfirstweekday(6)
 
@@ -10,7 +10,7 @@ columns_dict = {0: 'A', 1: 'C', 2: 'E', 3: 'G', 4: 'I', 5: 'K', 6: 'M'}
 col_dict = {0: 'B', 1: 'D', 2: 'F', 3: 'H', 4: 'J', 5: 'L', 6: 'N'}
 
 start_date = '01/2024'
-end_date = '05/2024'
+end_date = '06/2024'
 
 start = start_date.split("/")
 start_month = int(start[0])
@@ -18,6 +18,8 @@ start_year = int(start[1])
 end = end_date.split("/")
 end_month = int(end[0])
 end_year = int(end[1])
+
+workbook = xlsxwriter.Workbook('AcademicPlanner' + '_' + str(start_year) + '-' + str(end_year) + '.xlsx')
 
 months = []
 current = [start_month,start_year]
