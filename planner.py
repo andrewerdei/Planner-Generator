@@ -73,9 +73,9 @@ def create_month(month, year):
     month = workbook.add_worksheet(month_str)
 
     for i in range(0, 12, 2):
-        month.set_column(i, i, 8)
+        month.set_column(i, i, 7)
     for i in range(1, 14, 2):
-        month.set_column(i, i, 25)
+        month.set_column(i, i, 32)
     month.merge_range("A1:N1", month_str, month_format)
     month.merge_range("A2:B2", 'Sunday', day_header)
     month.merge_range("C2:D2", 'Monday', day_header)
@@ -113,23 +113,23 @@ def create_month(month, year):
                 if week == weeks[0]:
                     month.merge_range(columns_dict[index]+str(i)+':'+col_dict[index]+str(i), last_prev[index], invalid_weekend)
                 else: month.merge_range(columns_dict[index]+str(i)+':'+col_dict[index]+str(i), first_next[index], invalid_weekend)
-                for a in range(9):
+                for a in range(8):
                     b += 1
-                    month.data_validation(columns_dict[index]+str(b), {'validate': 'list', 'source': '=sources!$A$1:$A$3'})
+                    month.data_validation(columns_dict[index]+str(b), {'validate': 'list', 'source': '=sources!$A$1:$A$4'})
                     month.write_column(columns_dict[index]+str(b), ' ', invalid)
                     month.write_column(col_dict[index]+str(b), ' ', invalid)
                     a + 1
             else: 
                 month.merge_range(columns_dict[index]+str(i)+':'+col_dict[index]+str(i), week[index], valid_weekend)
-                for a in range(9):
+                for a in range(8):
                     b += 1 
-                    month.data_validation(columns_dict[index]+str(b), {'validate': 'list', 'source': '=sources!$A$1:$A$3'})
+                    month.data_validation(columns_dict[index]+str(b), {'validate': 'list', 'source': '=sources!$A$1:$A$4'})
                     month.write_column(columns_dict[index]+str(b), ' ', column)
                     month.write_column(col_dict[index]+str(b), ' ', column)
                     a + 1
         i += 9
     
-    month.set_row(i, 12, border_top)
+    month.set_row(i-1, 12, border_top)
     month.set_row(0, 40)
     month.set_row(1, 20)
 
@@ -141,5 +141,6 @@ sources = workbook.add_worksheet('sources')
 sources.write('A1', 'Pending')
 sources.write('A2', 'WIP')
 sources.write('A3', '✅')
+sources.write('A4', ' ')
 
 workbook.close()
